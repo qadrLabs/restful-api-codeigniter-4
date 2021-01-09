@@ -38,4 +38,17 @@ class Posts extends ResourceController
 
         return $this->respondCreated($data, 'post created');
     }
+
+    public function update($id = null)
+    {
+        $data = $this->request->getPost();
+        $data['id'] = $id;
+
+        if (!$this->model->save($data)) {
+            # code...
+            return $this->fail($this->model->errors());
+        }
+
+        return $this->respond($data, 200, 'post updated');
+    }
 }
