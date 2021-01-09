@@ -27,4 +27,15 @@ class Posts extends ResourceController
 
         return $this->respond($record);
     }
+
+    public function create()
+    {
+        $data = $this->request->getPost();
+        if (!$this->model->save($data)) {
+            # code...
+            return $this->fail($this->model->errors());
+        }
+
+        return $this->respondCreated($data, 'post created');
+    }
 }
