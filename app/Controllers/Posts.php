@@ -51,4 +51,17 @@ class Posts extends ResourceController
 
         return $this->respond($data, 200, 'post updated');
     }
+
+    public function delete($id = null)
+    {
+        $delete = $this->model->delete($id);
+        if ($this->model->db->affectedRows() === 0) {
+            return $this->failNotFound(sprintf(
+                'post with id %id not found or already deleted',
+                $id
+            ));
+        }
+
+        return $this->respondDeleted(['id' => $id], 'post deleted');
+    }
 }
