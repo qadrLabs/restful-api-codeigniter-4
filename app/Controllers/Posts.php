@@ -41,7 +41,7 @@ class Posts extends ResourceController
 
     public function update($id = null)
     {
-        $data = $this->request->getPost();
+        $data = $this->request->getRawInput();
         $data['id'] = $id;
 
         if (!$this->model->save($data)) {
